@@ -22,10 +22,12 @@ class Request {
 			follow: this.redirect
 		});
 		const raw = await response.buffer();
+		const headers = {};
+		for (const [header, value] of Object.entries(response.headers.raw())) headers[header] = value.join('');
 		const res = {
 			status: response.status,
 			statusText: response.statusText,
-			headers: response.headers.raw(),
+			headers,
 			ok: response.ok,
 			raw,
 			get text() {
