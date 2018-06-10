@@ -19,7 +19,8 @@ class Request {
 		const response = await fetch(`${this.url}${queryParams ? `?${queryParams}` : ''}`, {
 			method: this.method,
 			headers: this.headers,
-			follow: this.redirect
+			follow: this.redirect,
+			body: this.body
 		});
 		const raw = await response.buffer();
 		const headers = {};
