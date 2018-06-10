@@ -16,7 +16,7 @@ class Request {
 
 	async _request() {
 		const queryParams = querystring.stringify(this.queryParams) || '';
-		const response = await fetch(`${this.url}${queryParams ? `?${queryParams}` : ''}`, {
+		const response = await fetch(encodeURI(`${this.url}${queryParams ? `?${queryParams}` : ''}`), {
 			method: this.method,
 			headers: this.headers,
 			follow: this.redirect,
