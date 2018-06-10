@@ -37,9 +37,9 @@ class Request {
 			get body() {
 				if (/application\/json/gi.test(res.headers['content-type'])) {
 					try {
-						return JSON.parse(res.text);
+						return JSON.parse(raw.toString());
 					} catch (err) {
-						return res.text;
+						return raw.toString();
 					}
 				} else {
 					return raw;
