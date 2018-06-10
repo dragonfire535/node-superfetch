@@ -16,7 +16,7 @@ class Request {
 
 	async _request() {
 		const queryParams = querystring.stringify(this.queryParams) || '';
-		const response = await fetch(encodeURI(`${this.url}${queryParams ? `?${queryParams}` : ''}`), {
+		const response = await fetch(`${this.url}${queryParams ? `?${queryParams}` : ''}`, {
 			method: this.method,
 			headers: this.headers,
 			follow: this.redirect,
@@ -33,17 +33,19 @@ class Request {
 			raw,
 			get text() {
 				return raw.toString();
+			},
+			get body() {
+				if (/application\/json/gi.test(res.headers['content-type'])) {
+					try {
+						return JSON.parse(res.text);
+					} catch (err) {
+						return res.text;
+					}
+				} else {
+					return raw;
+				}
 			}
 		};
-		if (/application\/json/gi.test(res.headers['content-type'])) {
-			try {
-				res.body = JSON.parse(res.text);
-			} catch (err) {
-				res.body = res.text;
-			}
-		} else {
-			res.body = raw;
-		}
 		if (!response.ok) {
 			const err = new Error(`${res.status} ${res.statusText}`);
 			Object.assign(err, res);
