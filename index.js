@@ -11,7 +11,7 @@ class Request {
 		this.queryParams = options.query || {};
 		this.headers = options.headers || {};
 		this.body = options.body || null;
-		this.redirects = typeof options.redirects !== 'undefined' ? options.redirects : 20;
+		this.redirectCount = typeof options.redirects !== 'undefined' ? options.redirects : 20;
 	}
 
 	async _request() {
@@ -19,7 +19,7 @@ class Request {
 		const response = await fetch(`${this.url}${queryParams ? `?${queryParams}` : ''}`, {
 			method: this.method,
 			headers: this.headers,
-			follow: this.redirect,
+			follow: this.redirectCount,
 			body: this.body
 		});
 		const raw = await response.buffer();
@@ -99,7 +99,7 @@ class Request {
 
 	redirects(amount) {
 		if (typeof amount !== 'number') throw new TypeError('The "amount" parameter must be a number.');
-		this.redirects = amount;
+		this.redirectCount = amount;
 		return this;
 	}
 }
