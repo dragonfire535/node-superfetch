@@ -81,7 +81,16 @@ class Request {
 		return this;
 	}
 
-	send(body) {
+	send(body, raw = false) {
+		if (!raw && body !== null && typeof body === 'object') {
+			const header = this.headers['content-type'];
+			if (header) {
+				if (/application\/json/gi.test(header)) body = JSON.stringify(body);
+			} else {
+				this.set({ 'Content-Type': 'application/json' });
+				body = JSON.stringify(body);
+			}
+		}
 		this.body = body;
 		return this;
 	}
