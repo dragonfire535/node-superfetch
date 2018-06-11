@@ -23,10 +23,9 @@ try {
 ```
 Usage is basically that of superagent or snekfetch, and implements the same HTTP
 methods, as well as functions like `query` (sets query parameters), `set` (sets
-headers), `send` (for adding POST data and such), and `redirects` (for setting
-the allowed number of redirects). `end` is also supported for callbacks. It 
-_does not_ implement anything related to formdata (but you can probably attach
-it like you would with node-fetch).
+headers), `send` (for adding POST data and such), `attach` (for sending
+FormData), and `redirects` (for setting the allowed number of redirects). `end`
+is also supported for callbacks.
 
 ## Disclaimer for Contributors
 This package is really made for my own personal use, I will accept PRs to it

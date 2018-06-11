@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
+const FormData = require('form-data');
 const querystring = require('querystring');
 const { METHODS } = require('http');
+const { version } = require('./package');
 
 class Request {
 	constructor(options) {
@@ -70,20 +72,39 @@ class Request {
 	}
 
 	query(queryOrName, value) {
-		if (typeof queryOrName === 'object' && !value) this.queryParams = { ...this.queryParams, ...queryOrName };
-		else if (typeof queryOrName === 'string' && value) this.queryParams[queryOrName] = value;
-		else throw new TypeError('The "query" parameter must be either an object or a query field.');
+		if (typeof queryOrName === 'object' && !value) {
+			for (const [param, val] of Object.entries(queryOrName)) this.queryParams[param] = val;
+		} else if (typeof queryOrName === 'string' && value) {
+			this.queryParams[queryOrName] = value;
+		} else {
+			throw new TypeError('The "query" parameter must be either an object or a query field.');
+		}
 		return this;
 	}
 
 	set(headersOrName, value) {
-		if (typeof headersOrName === 'object' && !value) this.headers = { ...this.headers, ...headersOrName };
-		else if (typeof headersOrName === 'string' && value) this.headers[headersOrName] = value;
-		else throw new TypeError('The "headers" parameter must be either an object or a header field.');
+		if (typeof headersOrName === 'object' && !value) {
+			for (const [header, val] of Object.entries(headersOrName)) this.headers[header] = val;
+		} else if (typeof headersOrName === 'string' && value) {
+			this.headers[headersOrName] = value;
+		} else {
+			throw new TypeError('The "headers" parameter must be either an object or a header field.');
+		}
+		return this;
+	}
+
+	attach(...args) {
+		if (!this.body || !(this.body instanceof FormData)) this.body = new FormData();
+		if (typeof args[0] === 'object') {
+			for (const [key, val] of Object.entries(args[0])) this.attach(key, val);
+		} else {
+			this.body.append(...args);
+		}
 		return this;
 	}
 
 	send(body, raw = false) {
+		if (body instanceof FormData) raw = true;
 		if (!raw && body !== null && typeof body === 'object') {
 			const header = this.headers['content-type'];
 			if (header) {
@@ -108,5 +129,7 @@ for (const method of METHODS) {
 	if (!/^[A-Z$_]+$/gi.test(method)) continue;
 	Request[method.toLowerCase()] = (url, options) => new Request({ url, method, ...options });
 }
+
+Request.version = version;
 
 module.exports = Request;
