@@ -15,7 +15,7 @@ class Request {
 	}
 
 	async _request() {
-		const queryParams = querystring.stringify(this.queryParams) || '';
+		const queryParams = querystring.stringify(this.queryParams);
 		const response = await fetch(`${this.url}${queryParams ? `?${queryParams}` : ''}`, {
 			method: this.method,
 			headers: this.headers,
@@ -24,7 +24,7 @@ class Request {
 		});
 		const raw = await response.buffer();
 		const headers = {};
-		for (const [header, value] of Object.entries(response.headers.raw())) headers[header] = value.join('');
+		for (const [header, value] of response.headers.entries()) headers[header] = value;
 		const res = {
 			status: response.status,
 			statusText: response.statusText,
@@ -35,7 +35,7 @@ class Request {
 				return raw.toString();
 			},
 			get body() {
-				if (/application\/json/gi.test(res.headers['content-type'])) {
+				if (/application\/json/gi.test(headers['content-type'])) {
 					try {
 						return JSON.parse(raw.toString());
 					} catch (err) {
@@ -70,14 +70,14 @@ class Request {
 	}
 
 	query(queryOrName, value) {
-		if (typeof queryOrName === 'object' && !value) this.queryParams = { ...queryOrName, ...this.queryParams };
+		if (typeof queryOrName === 'object' && !value) this.queryParams = { ...this.queryParams, ...queryOrName };
 		else if (typeof queryOrName === 'string' && value) this.queryParams[queryOrName] = value;
 		else throw new TypeError('The "query" parameter must be either an object or a query field.');
 		return this;
 	}
 
 	set(headersOrName, value) {
-		if (typeof headersOrName === 'object' && !value) this.headers = { ...headersOrName, ...this.headers };
+		if (typeof headersOrName === 'object' && !value) this.headers = { ...this.headers, ...headersOrName };
 		else if (typeof headerOrName === 'string' && value) this.headers[headersOrName] = value;
 		else throw new TypeError('The "headers" parameter must be either an object or a header field.');
 		return this;
@@ -89,7 +89,7 @@ class Request {
 			if (header) {
 				if (/application\/json/gi.test(header)) body = JSON.stringify(body);
 			} else {
-				this.set({ 'Content-Type': 'application/json' });
+				this.set('content-type', 'application/json');
 				body = JSON.stringify(body);
 			}
 		}
