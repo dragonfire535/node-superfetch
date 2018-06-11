@@ -78,7 +78,7 @@ class Request {
 
 	set(headersOrName, value) {
 		if (typeof headersOrName === 'object' && !value) this.headers = { ...this.headers, ...headersOrName };
-		else if (typeof headerOrName === 'string' && value) this.headers[headersOrName] = value;
+		else if (typeof headersOrName === 'string' && value) this.headers[headersOrName] = value;
 		else throw new TypeError('The "headers" parameter must be either an object or a header field.');
 		return this;
 	}
