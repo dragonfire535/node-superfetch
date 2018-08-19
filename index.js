@@ -13,7 +13,7 @@ class Request {
 		this.queryParams = options.query || {};
 		this.headers = options.headers || {};
 		this.body = options.body || null;
-		this.redirectCount = typeof options.redirects !== 'undefined' ? options.redirects : 20;
+		this.redirectCount = typeof options.redirects === 'undefined' ? 20 : options.redirects;
 	}
 
 	async _request() {

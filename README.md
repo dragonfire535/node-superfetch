@@ -26,10 +26,3 @@ methods, as well as functions like `query` (sets query parameters), `set` (sets
 headers), `send` (for adding POST data and such), `attach` (for sending
 FormData), and `redirects` (for setting the allowed number of redirects). `end`
 is also supported for callbacks.
-
-## Disclaimer for Contributors
-This package is really made for my own personal use, I will accept PRs to it
-but I won't implement feature x just because the public wants it or superagent
-has it. I also want to keep the codebase relatively dependency-free aside from
-node-fetch, so please refrain from adding ~~useless~~ additional modules. Thank
-you.
