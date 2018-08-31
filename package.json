@@ -36,7 +36,7 @@
 	"devDependencies": {
 		"eslint": "^5.4.0",
 		"eslint-config-amber": "^1.1.0",
-		"eslint-plugin-json": "^1.2.0"
+		"eslint-plugin-json": "^1.2.1"
 	},
 	"eslintConfig": {
 		"extends": "amber",
