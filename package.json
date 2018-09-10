@@ -1,6 +1,6 @@
 {
 	"name": "node-superfetch",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "A wrapper for node-fetch that makes it appear like superagent.",
 	"main": "index.js",
 	"scripts": {
@@ -27,7 +27,7 @@
 	},
 	"homepage": "https://github.com/dragonfire535/node-superfetch#readme",
 	"engines": {
-		"node": ">=8.0.0"
+		"node": ">=8"
 	},
 	"dependencies": {
 		"form-data": "^2.3.2",
