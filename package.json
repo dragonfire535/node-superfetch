@@ -1,6 +1,6 @@
 {
 	"name": "node-superfetch",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "A wrapper for node-fetch that makes it appear like superagent.",
 	"main": "index.js",
 	"scripts": {
