@@ -24,5 +24,5 @@ try {
 Usage is basically that of superagent or snekfetch, and implements the same HTTP
 methods, as well as functions like `query` (sets query parameters), `set` (sets
 headers), `send` (for adding POST data and such), `attach` (for sending
-FormData), and `redirects` (for setting the allowed number of redirects). `end`
-is also supported for callbacks.
+FormData), `redirects` (for setting the allowed number of redirects), and
+`agent` (for setting the HTTP agent). `end` is also supported for callbacks.
