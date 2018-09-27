@@ -13,6 +13,7 @@ class Request {
 		this.headers = options.headers || {};
 		this.body = options.body || null;
 		this.redirectCount = typeof options.redirects === 'undefined' ? 20 : options.redirects;
+		this.agent = options.agent || null;
 	}
 
 	async _request() {
@@ -20,7 +21,8 @@ class Request {
 			method: this.method,
 			headers: this.headers,
 			follow: this.redirectCount,
-			body: this.body
+			body: this.body,
+			agent: this.agent
 		});
 		const raw = await response.buffer();
 		const headers = {};
@@ -120,6 +122,11 @@ class Request {
 	redirects(amount) {
 		if (typeof amount !== 'number') throw new TypeError('The "amount" parameter must be a number.');
 		this.redirectCount = amount;
+		return this;
+	}
+
+	agent(agent) {
+		this.agent = agent;
 		return this;
 	}
 }
