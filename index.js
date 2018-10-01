@@ -1,28 +1,28 @@
 const fetch = require('node-fetch');
 const FormData = require('form-data');
-const querystring = require('querystring');
+const { URL } = require('url');
 const { METHODS } = require('http');
 const { version } = require('./package');
 
 class Request {
 	constructor(options) {
 		if (!options.url) throw new Error('The "url" option is required.');
-		this.url = options.url;
+		this.url = new URL(options.url);
 		this.method = options.method ? options.method.toUpperCase() : 'GET';
 		if (!METHODS.includes(this.method)) throw new Error(`The method "${this.method}" is not supported.`);
-		this.queryParams = options.query || {};
 		this.headers = options.headers || {};
 		this.body = options.body || null;
 		this.redirectCount = typeof options.redirects === 'undefined' ? 20 : options.redirects;
+		this.agent = options.agent || null;
 	}
 
 	async _request() {
-		const queryParams = querystring.stringify(this.queryParams);
-		const response = await fetch(`${this.url}${queryParams ? `?${queryParams}` : ''}`, {
+		const response = await fetch(this.url.toString(), {
 			method: this.method,
 			headers: this.headers,
 			follow: this.redirectCount,
-			body: this.body
+			body: this.body,
+			agent: this.agent
 		});
 		const raw = await response.buffer();
 		const headers = {};
@@ -73,10 +73,10 @@ class Request {
 	}
 
 	query(queryOrName, value) {
-		if (typeof queryOrName === 'object' && !value) {
-			for (const [param, val] of Object.entries(queryOrName)) this.queryParams[param] = val;
+		if (typeof queryOrName === 'object') {
+			for (const [param, val] of Object.entries(queryOrName)) this.url.searchParams.append(param, val);
 		} else if (typeof queryOrName === 'string' && value) {
-			this.queryParams[queryOrName] = value;
+			this.url.searchParams.append(queryOrName, value);
 		} else {
 			throw new TypeError('The "query" parameter must be either an object or a query field.');
 		}
@@ -84,7 +84,7 @@ class Request {
 	}
 
 	set(headersOrName, value) {
-		if (typeof headersOrName === 'object' && !value) {
+		if (typeof headersOrName === 'object') {
 			for (const [header, val] of Object.entries(headersOrName)) this.headers[header] = val;
 		} else if (typeof headersOrName === 'string' && value) {
 			this.headers[headersOrName] = value;
@@ -122,6 +122,11 @@ class Request {
 	redirects(amount) {
 		if (typeof amount !== 'number') throw new TypeError('The "amount" parameter must be a number.');
 		this.redirectCount = amount;
+		return this;
+	}
+
+	agent(agent) {
+		this.agent = agent;
 		return this;
 	}
 }
