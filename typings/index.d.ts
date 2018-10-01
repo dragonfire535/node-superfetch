@@ -77,6 +77,7 @@ declare class Request extends Promise<Response> {
 
   public send(body: RequestBody, raw?: boolean): this;
   public redirects(amount: number): this;
+  public agent(agent: Agent): this;
 
   protected _request(): Promise<Response>;
 }
