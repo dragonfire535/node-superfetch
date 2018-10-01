@@ -1,3 +1,5 @@
+import { Agent } from 'http';
+
 type KVObject = { [name: string]: string };
 
 type RequestBody = null | string | Buffer | Blob | NodeJS.ReadableStream;
@@ -8,6 +10,7 @@ interface RequestOptions {
   headers?: KVObject;
   body?: RequestBody;
   redirects?: number;
+  agent?: Agent;
 }
 
 type ResponseBody = object | string | Buffer;
