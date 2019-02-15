@@ -35,7 +35,7 @@
 		"node-fetch": "^2.2.0"
 	},
 	"devDependencies": {
-		"@types/node": "^10.11.3",
+		"@types/node": "^11.9.4",
 		"eslint": "^5.6.1",
 		"eslint-config-amber": "^2.0.0",
 		"eslint-plugin-json": "^1.2.1",
