@@ -2,7 +2,7 @@ import { Agent } from 'http';
 
 type KVObject = { [name: string]: string };
 
-type RequestBody = null | string | Buffer | Blob | NodeJS.ReadableStream;
+type RequestBody = null | string | Buffer | NodeJS.ReadableStream;
 interface RequestOptions {
 	url: string;
 	method?: string;
