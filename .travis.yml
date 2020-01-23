@@ -3,4 +3,5 @@ language: node_js
 node_js:
   - '8'
   - '10'
-install: npm i -g eslint eslint-config-amber eslint-plugin-json
+  - '12'
+install: npm i -g eslint && npm i eslint-config-amber eslint-plugin-json
