@@ -58,7 +58,7 @@ class Request {
 	}
 
 	then(resolver, rejector) {
-		return this._request().then(resolver).catch(rejector);
+		return this._request().then(resolver, rejector);
 	}
 
 	catch(rejector) {
