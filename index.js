@@ -34,6 +34,7 @@ class Request {
 			statusText: response.statusText,
 			headers,
 			url: response.url,
+			redirected: response.redirected,
 			ok: response.ok,
 			raw,
 			get text() {

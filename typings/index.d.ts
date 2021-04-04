@@ -21,6 +21,7 @@ interface Response {
 	headers: KVObject;
 	url: string;
 	ok: boolean;
+	redirected: boolean;
 	raw: Buffer | null;
 	text: string | null;
 	body: ResponseBody | null;
