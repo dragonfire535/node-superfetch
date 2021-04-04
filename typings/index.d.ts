@@ -11,6 +11,7 @@ interface RequestOptions {
 	body?: RequestBody;
 	redirects?: number;
 	agent?: Agent;
+	noResultData?: Boolean
 }
 
 type ResponseBody = object | string | Buffer;
@@ -20,9 +21,9 @@ interface Response {
 	headers: KVObject;
 	url: string;
 	ok: boolean;
-	raw: Buffer;
-	text: string;
-	body: ResponseBody;
+	raw: Buffer | null;
+	text: string | null;
+	body: ResponseBody | null;
 }
 
 type StaticRequest = (url: string, options?: RequestOptions) => Request;
