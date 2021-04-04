@@ -14,6 +14,7 @@ class Request {
 		this.body = options.body || null;
 		this.redirectCount = typeof options.redirects === 'undefined' ? 20 : options.redirects;
 		this.agent = options.agent || null;
+		this.noResultData = options.noResultData || false;
 	}
 
 	async _request() {
@@ -24,7 +25,8 @@ class Request {
 			body: this.body,
 			agent: this.agent
 		});
-		const raw = await response.buffer();
+		let raw = null;
+		if (!this.noResultData) raw = await response.buffer();
 		const headers = {};
 		for (const [header, value] of response.headers.entries()) headers[header] = value;
 		const res = {
@@ -35,9 +37,11 @@ class Request {
 			ok: response.ok,
 			raw,
 			get text() {
+				if (this.noResultData) return null;
 				return raw.toString();
 			},
 			get body() {
+				if (this.noResultData) return null;
 				if (/application\/json/gi.test(headers['content-type'])) {
 					try {
 						return JSON.parse(raw.toString());
