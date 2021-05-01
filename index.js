@@ -100,7 +100,10 @@ class Request {
 	}
 
 	attach(...args) {
-		if (!this.body || !(this.body instanceof FormData)) this.body = new FormData();
+		if (!this.body || !(this.body instanceof FormData)) {
+			this.body = new FormData();
+			this.set('content-type', `multipart/form-data; boundary=${formData.getBoundary()}`);
+		}
 		if (typeof args[0] === 'object') {
 			for (const [key, val] of Object.entries(args[0])) this.attach(key, val);
 		} else {
