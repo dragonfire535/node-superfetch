@@ -102,7 +102,7 @@ class Request {
 	attach(...args) {
 		if (!this.body || !(this.body instanceof FormData)) {
 			this.body = new FormData();
-			for (const [key, val] of this.body.getHeaders()) this.set(key, val);
+			for (const [key, val] of Object.entries(this.body.getHeaders())) this.set(key, val);
 			this.set('content-length', this.body.getLengthSync());
 		}
 		if (typeof args[0] === 'object') {
