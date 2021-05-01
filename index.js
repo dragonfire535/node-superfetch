@@ -100,16 +100,14 @@ class Request {
 	}
 
 	attach(...args) {
-		if (!this.body || !(this.body instanceof FormData)) {
-			this.body = new FormData();
-			for (const [key, val] of Object.entries(this.body.getHeaders())) this.set(key, val);
-			this.set('content-length', this.body.getLengthSync());
-		}
+		if (!this.body || !(this.body instanceof FormData)) this.body = new FormData();
 		if (typeof args[0] === 'object') {
 			for (const [key, val] of Object.entries(args[0])) this.attach(key, val);
 		} else {
 			this.body.append(...args);
 		}
+		this.set(this.body.getHeaders());
+		this.set('content-length', this.body.getLengthSync());
 		return this;
 	}
 
