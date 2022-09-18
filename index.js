@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const FormData = require('form-data');
 const { URL } = require('url');
 const { METHODS } = require('http');

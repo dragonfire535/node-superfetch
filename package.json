@@ -1,7 +1,7 @@
 {
 	"name": "node-superfetch",
-	"version": "0.2.3",
-	"description": "A wrapper for node-fetch that makes it appear like superagent.",
+	"version": "0.3.0",
+	"description": "A wrapper for Node.js' fetch API that makes it appear like superagent.",
 	"main": "index.js",
 	"typings": "typings/index.d.ts",
 	"scripts": {
@@ -28,18 +28,17 @@
 	},
 	"homepage": "https://github.com/dragonfire535/node-superfetch#readme",
 	"engines": {
-		"node": ">=8"
+		"node": ">=18"
 	},
 	"dependencies": {
-		"form-data": "^4.0.0",
-		"node-fetch": "^2.6.1"
+		"form-data": "^4.0.0"
 	},
 	"devDependencies": {
-		"@types/node": "^14.14.37",
-		"eslint": "^7.23.0",
+		"@types/node": "^18.7.18",
+		"eslint": "^8.23.1",
 		"eslint-config-amber": "^2.0.4",
-		"eslint-plugin-json": "^2.1.2",
-		"typescript": "^4.2.3"
+		"eslint-plugin-json": "^3.1.0",
+		"typescript": "^4.8.3"
 	},
 	"eslintConfig": {
 		"extends": "amber",
