@@ -1,14 +1,9 @@
 # node-superfetch
 [![Downloads](https://img.shields.io/npm/dt/node-superfetch.svg?maxAge=3600)](https://www.npmjs.com/package/node-superfetch)
 [![Version](https://img.shields.io/npm/v/node-superfetch.svg?maxAge=3600)](https://www.npmjs.com/package/node-superfetch)
-[![Travis](https://api.travis-ci.org/dragonfire535/node-superfetch.svg?branch=master)](https://travis-ci.org/dragonfire535/node-superfetch)
 
-node-superfetch is a tiny little wrapper for
-[node-fetch](https://www.npmjs.com/package/node-fetch) that makes it look like
-you are using [superagent](https://www.npmjs.com/package/superagent). It arose
-after I decided I disliked the node-fetch API and loved the superagent API, but
-node-fetch is smaller than superagent and snekfetch is buggy
-(~~and this probably is too~~).
+node-superfetch is a tiny little wrapper for Node.js' fetch API that makes it
+look like you are using [superagent](https://www.npmjs.com/package/superagent).
 
 ## Basic Usage
 ```js
