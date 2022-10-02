@@ -1,6 +1,6 @@
 {
 	"name": "node-superfetch",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"description": "A wrapper for Node.js' fetch API that makes it appear like superagent.",
 	"main": "index.js",
 	"typings": "typings/index.d.ts",
@@ -35,6 +35,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^18.7.18",
+		"arraybuffer-to-buffer": "^0.0.7",
 		"eslint": "^8.23.1",
 		"eslint-config-amber": "^2.0.4",
 		"eslint-plugin-json": "^3.1.0",

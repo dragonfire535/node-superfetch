@@ -1,4 +1,5 @@
 const FormData = require('form-data');
+const arrayBufferToBuffer = require('arraybuffer-to-buffer');
 const { URL } = require('url');
 const { METHODS } = require('http');
 const { version } = require('./package');
@@ -25,7 +26,10 @@ class Request {
 			agent: this.agent
 		});
 		let raw = null;
-		if (!this.noResultData) raw = await response.arrayBuffer();
+		if (!this.noResultData) {
+			raw = await response.arrayBuffer();
+			raw = arrayBufferToBuffer(raw);
+		}
 		const headers = {};
 		for (const [header, value] of response.headers.entries()) headers[header] = value;
 		const res = {
