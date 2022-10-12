@@ -10,7 +10,7 @@ look like you are using [superagent](https://www.npmjs.com/package/superagent).
 const request = require('node-superfetch');
 
 try {
-	const { body } = await request.get('https://registry.npmjs.com/node-fetch');
+	const { body } = await request.get('https://registry.npmjs.com/node-superfetch');
 	console.log(body);
 } catch (err) {
 	console.error(err);
@@ -24,9 +24,9 @@ FormData), `redirects` (for setting the allowed number of redirects), and
 
 Additionally, you can also use the `noResultData` option to get everything
 except the actual result data of the request. This is essentially doing the
-request without calling any of `node-fetch`'s methods to parse the result data.
+request without calling any methods to parse the result data.
 
 ```js
-const { headers, url } = await request.get('https://registry.npmjs.com/node-fetch', { noResultData: true });
-console.log(url); // should log https://registry.npmjs.com/node-fetch
+const { headers, url } = await request.get('https://registry.npmjs.com/node-superfetch', { noResultData: true });
+console.log(url); // should log https://registry.npmjs.com/node-superfetch
 ```

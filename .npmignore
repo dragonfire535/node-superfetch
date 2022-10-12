@@ -6,3 +6,4 @@ logs/
 .gitignore
 .gitattributes
 .travis.yml
+.DS_Store

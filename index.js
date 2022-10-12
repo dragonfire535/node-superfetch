@@ -26,10 +26,7 @@ class Request {
 			agent: this.agent
 		});
 		let raw = null;
-		if (!this.noResultData) {
-			raw = await response.arrayBuffer();
-			raw = arrayBufferToBuffer(raw);
-		}
+		if (!this.noResultData) raw = arrayBufferToBuffer(await response.arrayBuffer());
 		const headers = {};
 		for (const [header, value] of response.headers.entries()) headers[header] = value;
 		const res = {
