@@ -107,7 +107,6 @@ class Request {
 			this.body.append(...args);
 		}
 		this.set(this.body.getHeaders());
-		this.set('content-length', this.body.getLengthSync());
 		return this;
 	}
 
